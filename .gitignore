@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Build / temp
+*.zip
+*.tmp
+*.log
