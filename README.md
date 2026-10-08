@@ -1,6 +1,6 @@
 # ☁️🔐 Cloud Security Lab — Offensive & Defensive (GCP)
 
-A hands-on **offensive _and_ defensive** security lab, built **entirely on Google Cloud (GCP) from the command line** (`gcloud`, infrastructure-as-code). Five real-world attack techniques are reproduced end-to-end along the **Cyber Kill Chain** — and each one is paired with its **detection, forensic auditing and mitigation** using **cloud-native** telemetry.
+A hands-on **offensive _and_ defensive** security lab, built **entirely on Google Cloud (GCP) from the command line** (`gcloud`, infrastructure-as-code). Five real-world attack techniques are reproduced end-to-end along the **Cyber Kill Chain**, and the report pairs each one with its **detection, forensic auditing and mitigation**. Three of the five were detected in the lab's own logs; the note under the attack table says which controls ran and which are recommendations.
 
 > 📄 **Full technical report (PT-BR, with real terminal evidence):** [`docs/relatorio-laboratorio-seguranca-gcp.pdf`](docs/relatorio-laboratorio-seguranca-gcp.pdf)
 > 🌐 **Portfolio:** [oguarni.github.io](https://oguarni.github.io/)
@@ -48,7 +48,7 @@ The VMs configure themselves via startup scripts ([`startup-atacante.sh`](script
 
 ## ⚔️ Attacks → 🛡️ Defenses
 
-Each technique maps to a **Cyber Kill Chain** phase and to a **real recent incident**, and is answered with cloud-native detection + mitigation:
+Each technique maps to a **Cyber Kill Chain** phase and to a **real recent incident**, and the report pairs it with a detection and a mitigation:
 
 | # | Kill Chain phase | Attack | Tool | Detection & mitigation | Real-world case |
 |:-:|---|---|---|---|---|
@@ -58,7 +58,7 @@ Each technique maps to a **Cyber Kill Chain** phase and to a **real recent incid
 | 4 | Initial access (human) | **Phishing / credential harvesting** | SET | awareness training · phishing-resistant **MFA (FIDO2)** | 0ktapus / Scattered Spider |
 | 5 | Collection / exfiltration | **HTTP sniffing** | Wireshark | **TLS/HTTPS** · GCP Packet Mirroring · Cloud IDS | — |
 
-Cloud IDS and Packet Mirroring are recommendations. The report describes them, but I didn't deploy either one in this lab.
+Not everything in this table ran in the lab. Three techniques were detected there: the SQL injection in Apache's access log on the target, the SSH brute force in `auth.log` (forwarded to Cloud Logging by the Ops Agent) and in VPC Flow Logs, and the port scan in VPC Flow Logs and Firewall Logging. Phishing and sniffing weren't detected. Of the mitigations, only Fail2Ban was deployed; the report lists prepared statements, a WAF, key auth, MFA, TLS/HTTPS and awareness training as recommended measures. Cloud IDS and Packet Mirroring are recommendations too. The report describes them, but I didn't deploy either one in this lab.
 
 A **simulated incident-response policy** based on **NIST SP 800-61** ties it together (detection → containment → eradication → recovery → lessons learned), with measured response metrics (e.g., Fail2Ban contained the brute force in **3 failed attempts**).
 
